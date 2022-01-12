@@ -84,7 +84,20 @@ while True:
                 cv2.drawContours(display,[boxList[idx]],0,(0,0,255),2) #Draws box on image these are the red boxes.  Its what you see
                 
                         
-                
+            if Max != 0:
+                screenText = 'Height=' + str(round(Max,1)) 
+                #cv2.line(display,(320,10),(320,470),(255,0,0),2) #draw line in middle of screen
+                font                   = cv2.FONT_HERSHEY_SIMPLEX
+                bottomLeftCornerOfText = (10,300)
+                fontScale              = 1
+                fontColor              = (255,255,255)
+                lineType               = 2
+                cv2.putText(display, screenText, 
+                bottomLeftCornerOfText, 
+                font, 
+                fontScale,
+                fontColor,
+                lineType)### Put text on the screen
 
             
             #cv2.imshow("Mask", mask) ##look at mask image  ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!! Huge speed penalty
