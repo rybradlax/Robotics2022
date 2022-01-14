@@ -40,8 +40,8 @@ def contour(cts):
 vs = PiVideoStream().start() # Start taking frames
 
 display= vs.read()
+Max = 0
 
-coordList = []
 boxList = []
 while True:
     
@@ -64,7 +64,7 @@ while True:
             cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]  # Find the contours of the mask
             if len(cnts)!=0:  #only runs the following if you see something
                 zzzzzz = 4
-               
+                coordList = []
 
                 too_small = []
                 ct = 0
@@ -102,7 +102,7 @@ while True:
             
             #cv2.imshow("Mask", mask) ##look at mask image  ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!! Huge speed penalty
             cv2.imshow("Frame",display) ## look at what it sees ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!!
-
+            
             
             #Comment back in to see time per frame
             #print('time', time.time() - currentTime)
