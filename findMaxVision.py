@@ -15,10 +15,28 @@ import time
 import datetime
 import math
 from math import e
+from networktables import NetworkTables as nt
 import sys
 import os
 import select
+import socket
 
+count = 1
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(0)
+print('Network Tables is setup on Pi')
+
+while 1:
+    try:
+       ip = socket.gethostbyname('roboRIO-329-FRC.local')
+       print('Connected to robot')
+       break
+    except:
+        print('Waiting for NWT and Roborio connection')
+        time.sleep(.5)
+        pass
+nt.initialize(server=ip)
+sd = nt.getTable("SmartDashboard")
 
 def findMax(coords):
     Max = 480.0
@@ -70,7 +88,28 @@ inCenter = False
 arb = 10000
 ars = 15 
 while True:
-    
+    count += 1
+    turnangle = 999
+    try:
+        r = piAlive(r)
+    except:
+        pass
+
+    if count > 200: #Only check network connection every 200 Frames
+       count = 0
+       start_time = time.time()
+       try:
+           while True:
+               ip = socket.gethostbyname('roboRIO-329-FRC.local')
+               nt.initialize(server=ip)
+               sd = nt.getTable("SmartDashboard")
+               #print("Network reconnected")
+               break                
+       except Exception as ex:
+               print(ex)
+               turnAng = 999
+               time.sleep(1)
+               pass
     if True:
         found = False
         process = True
@@ -186,9 +225,14 @@ while True:
                 fontColor,
                 lineType)### Put text on the screen
 
-            
+             try:
+                    sd.putNumber("Turn Angle", theta) #Add these back in to send data to Network tables
+                    sd.putString("Turn ", turnA)
+                    sd.putNumber('Distance Away',d)
+             except:
+                    pass
             #cv2.imshow("Mask", mask) ##look at mask image  ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!! Huge speed penalty
-            cv2.imshow("Frame",display) ## look at what it sees ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!!
+            #cv2.imshow("Frame",display) ## look at what it sees ############ COMMENT OUT WHEN ON ROBOT !!!!!!!!!!!!!!!!!!
 
             
             #Comment back in to see time per frame
