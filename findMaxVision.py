@@ -28,7 +28,7 @@ print('Network Tables is setup on Pi')
 
 while 1:
     try:
-       ip = socket.gethostbyname('roboRIO-329-FRC.local')
+       ip = socket.gethostbyname('329.local')
        print('Connected to robot')
        break
     except:
