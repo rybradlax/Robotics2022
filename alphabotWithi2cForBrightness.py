@@ -165,9 +165,15 @@ while True:
                         midpoint = [area1[0][0],area1[0][1]]
                         r, g, b = display[midpoint]
                         if r>70:
-                            brightness = brightness - 0.1
+                            if brightness > 0:
+                                brightness = brightness - 0.1
+                            else:
+                                brightness = 0.1
                         if r < 50 or g < 180 or b < 125:
-                            brightness = brightness + 0.1
+                            if brightness < 1.1:
+                                brightness = brightness + 0.1
+                            else:
+                                brightness = 1.0
                         if brightness == 1.0:
                             bus.write_byte(addr, 0x10)
                         else if brightness == 0.9:
