@@ -128,7 +128,9 @@ while True:
             Duplicate = True
         else:
             display=frame #set the new frame to display so it can check if the next is new
-
+            ## For auto tuning vision -- get rid of the r g b stuff that checks the bounding box's current colors because that only works for a target that already has a box around it
+            # create new minimum (low) hsv range to accomodate darker greens, and draw a mask2 and new contours (cnts2) and compare r g b value of that to the low/high values it should be
+            # a dark green is [0,128,0]
             low=np.array([50,180,125])
             high=np.array([70 ,255,255])
             #low=np.array([81,121,249])
