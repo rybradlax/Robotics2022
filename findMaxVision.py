@@ -181,7 +181,7 @@ while True:
                         cv2.drawContours(display,[boxList[idx]],0,(255,255,255),2)
                         if xCoordList[idx] >= 315 and xCoordList[idx] <= 325:
                             inCenter = True
-                            ightSide = False
+                            rightSide = False
                             leftSide = False;
                         elif xCoordList[idx] > 325:
                             rightSide = True
